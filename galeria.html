@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Galeria - 6º A/B Mitos e Verdades</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f5f8fb;
+      --card: #ffffff;
+      --accent: #125cdb;
+      --accent-light: #06b6d4;
+      --muted: #6b7280;
+      --glass: rgba(255, 255, 255, 0.6);
+      --shadow-light: rgba(2, 6, 23, 0.08);
+      --shadow-dark: rgba(15, 23, 42, 0.06);
+      --text-primary: #0f172a;
+      --text-secondary: #444;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, sans-serif;
+      color: var(--text-primary);
+      background: linear-gradient(180deg, #eef5ff 0%, var(--bg) 100%);
+      margin: 0;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      --transition: 0.3s ease;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --accent: #3b82f6;
+      --accent-light: #60a5fa;
+      --muted: #94a3b8;
+      --glass: rgba(30, 41, 59, 0.6);
+      --shadow-light: rgba(255, 255, 255, 0.05);
+      --shadow-dark: rgba(255, 255, 255, 0.12);
+      --text-primary: #e0e7ff;
+      --text-secondary: #cbd5e1;
+      background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    }
+
+    /* Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding-top: 72px; /* espaço para navbar fixa */
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: var(--font-family);
+      transition: background-color var(--transition), color var(--transition);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Navbar fixa */
+    nav.navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--card);
+      box-shadow: 0 2px 10px var(--shadow-dark);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 28px;
+      z-index: 1000;
+      transition: background-color var(--transition), box-shadow var(--transition);
+    }
+    nav.navbar .brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    nav.navbar .logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: #fff;
+      font-weight: 700;
+      font-size: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      user-select: none;
+      box-shadow: 0 6px 20px var(--shadow-light);
+      transition: background var(--transition);
+    }
+    nav.navbar .title {
+      font-weight: 700;
+      font-size: 20px;
+      color: var(--accent);
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    /* Menu de navegação */
+    .nav-menu {
+      display: flex;
+      gap: 20px;
+      margin: 0 20px;
+    }
+
+    .nav-link {
+      padding: 8px 16px;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 600;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link:hover, 
+    .nav-link.active {
+      background-color: var(--accent);
+      color: white;
+    }
+
+    /* Botão modo escuro */
+    #darkModeToggle {
+      background: transparent;
+      border: 2px solid var(--accent);
+      border-radius: 24px;
+      color: var(--accent);
+      font-weight: 600;
+      padding: 6px 16px;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color var(--transition), color var(--transition), border-color var(--transition);
+    }
+    #darkModeToggle:hover,
+    #darkModeToggle:focus {
+      background-color: var(--accent);
+      color: #fff;
+      outline: none;
+    }
+
+    /* Container principal */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 28px 28px;
+      flex: 1;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        padding: 0 16px 16px;
+      }
+      
+      .nav-menu {
+        display: none; /* Esconder menu em mobile */
+      }
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 10px 30px var(--shadow-dark);
+      border: 1px solid rgba(15, 23, 42, 0.05);
+      transition: box-shadow var(--transition), background-color var(--transition);
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeInUp 0.5s forwards;
+    }
+    .card:nth-child(1) { animation-delay: 0.1s; }
+    .card:nth-child(2) { animation-delay: 0.25s; }
+    .card:nth-child(3) { animation-delay: 0.4s; }
+
+    .card:hover {
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.2);
+    }
+
+    /* Section titles */
+    .section-title {
+      font-weight: 700;
+      font-size: 20px;
+      margin-bottom: 16px;
+      color: var(--accent);
+      border-bottom: 3px solid var(--accent);
+      padding-bottom: 6px;
+      user-select: none;
+      display: inline-block;
+      transition: color var(--transition), border-color var(--transition);
+    }
+
+    /* Lead text */
+    p.lead {
+      font-weight: 400;
+      font-size: 15px;
+      color: var(--muted);
+      margin: 6px 0 0 0;
+      line-height: 1.4;
+    }
+
+    /* Fade in animation */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Footer */
+    footer {
+      background: var(--card);
+      padding: 20px;
+      text-align: center;
+      margin-top: 28px;
+      border-top: 1px solid rgba(15, 23, 42, 0.1);
+    }
+    .credits {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* Estilos específicos para a página Galeria */
+    .gallery-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      aspect-ratio: 4/3;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .gallery-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover .gallery-image {
+      transform: scale(1.05);
+    }
+
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 12px;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+      font-size: 14px;
+    }
+
+    .gallery-item:hover .gallery-caption {
+      transform: translateY(0);
+    }
+
+    .gallery-category {
+      margin-top: 40px;
+    }
+
+    .category-title {
+      font-size: 22px;
+      color: var(--accent);
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-inner {
+      max-width: 95%;
+      max-height: 95%;
+      position: relative;
+      outline: none;
+    }
+
+    .modal-content {
+      max-width: 100%;
+      max-height: 80vh;
+      margin: auto;
+      display: block;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    }
+
+    .modal-caption {
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-size: 18px;
+      max-width: 90vw;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 10px;
+      right: 16px;
+      color: white;
+      font-size: 36px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.3s;
+      background: transparent;
+      border: none;
+    }
+
+    .close-modal:hover {
+      color: var(--accent-light);
+    }
+
+    .modal-nav {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20px;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    .modal-btn {
+      pointer-events: auto;
+      background: rgba(255, 255, 255, 0.12);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 56px;
+      height: 56px;
+      font-size: 28px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .modal-btn:hover, .modal-btn:focus {
+      background: rgba(255, 255, 255, 0.2);
+      outline: none;
+    }
+
+    /* Filtros */
+    .gallery-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .filter-btn {
+      padding: 8px 16px;
+      background: var(--card);
+      border: 1px solid var(--accent);
+      border-radius: 20px;
+      color: var(--accent);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--accent);
+      color: white;
+    }
+
+    /* Pesquisas grid */
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .research-card {
+      padding: 14px;
+      border-radius: 12px;
+      background: var(--card);
+      box-shadow: 0 6px 18px var(--shadow-dark);
+      border: 1px solid rgba(15,23,42,0.04);
+    }
+
+    .research-card h4 {
+      margin: 0 0 8px 0;
+      font-size: 16px;
+      color: var(--text-primary);
+    }
+
+    .research-card p {
+      margin: 0 0 12px 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .research-card a {
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .gallery-container {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 15px;
+      }
+      
+      .gallery-filters {
+        justify-content: center;
+      }
+      
+      .modal-content {
+        max-width: 95%;
+        max-height: 80%;
+      }
+      
+      .modal-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .gallery-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .container {
+        padding: 0 10px 10px;
+      }
+      
+      nav.navbar {
+        padding: 10px 15px;
+      }
+      
+      .nav-menu {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar" role="navigation" aria-label="Barra de navegação principal">
+    <div class="brand" aria-label="Identidade da escola e título do projeto">
+      <div class="logo" aria-hidden="true">6A</div>
+      <div class="title">6º A/B — Mitos e Verdades</div>
+    </div>
+    <div class="nav-menu" role="menubar" aria-label="Menu principal">
+      <a href="index.html" class="nav-link" role="menuitem">Início</a>
+      <a href="desenvolvimento.html" class="nav-link" role="menuitem">Desenvolvimento</a>
+      <a href="pesquisas.html" class="nav-link" role="menuitem">Pesquisas</a>
+      <a href="galeria.html" class="nav-link active" role="menuitem">Galeria</a>
+    </div>
+    <<button id="goHomeBtn">🏠 Voltar para Início</button>
+>
+  </nav>
+
+  <main class="container" id="main" tabindex="-1">
+    <section class="card" aria-labelledby="galeria-title">
+      <h2 id="galeria-title" class="section-title">Galeria de Imagens</h2>
+      <p class="lead">
+        Explore nossa coleção de imagens que mostram a beleza e a fragilidade das geleiras,
+        os efeitos do derretimento e as consequências para o nosso planeta.
+      </p>
+      
+      <div class="gallery-filters" role="toolbar" aria-label="Filtros da galeria">
+        <button class="filter-btn active" data-filter="all" aria-pressed="true">Todas</button>
+        <button class="filter-btn" data-filter="geleiras" aria-pressed="false">Geleiras</button>
+        <button class="filter-btn" data-filter="derretimento" aria-pressed="false">Derretimento</button>
+        <button class="filter-btn" data-filter="fauna" aria-pressed="false">Fauna</button>
+      </div>
+    </section>
+
+    <!-- GELEIRAS -->
+    <section class="card gallery-category" aria-labelledby="title-geleiras">
+      <h3 id="title-geleiras" class="category-title">Geleiras e Sua Beleza</h3>
+      <div class="gallery-container" id="gallery">
+        <div class="gallery-item" data-category="geleiras" tabindex="0" role="button" aria-label="Abrir imagem: Geleira na Antártida">
+          <img src="https://vocenaneve.com.br/wp-content/uploads/2022/06/Geleira-Perito-Moreno.jpg" 
+               alt="Geleira na Antártida" class="gallery-image">
+          <div class="gallery-caption">Geleira na Antártida - Uma das maiores reservas de gelo do planeta</div>
+        </div>
+        
+        <div class="gallery-item" data-category="geleiras" tabindex="0" role="button" aria-label="Abrir imagem: Formação de gelo azul">
+          <img src="https://vocenaneve.com.br/wp-content/uploads/2022/06/Lambert.jpg" 
+               alt="Formação de gelo azul" class="gallery-image">
+          <div class="gallery-caption">Formação de gelo azul na Groenlândia - O gelo compactado absorve outras cores do espectro e reflete o azul</div>
+        </div>
+        
+        <div class="gallery-item" data-category="geleiras" tabindex="0" role="button" aria-label="Abrir imagem: Geleira com formações únicas">
+          <img src="https://vocenaneve.com.br/wp-content/uploads/2022/06/Mer-de-Glace-1.jpg" 
+               alt="Geleira com formações únicas" class="gallery-image">
+          <div class="gallery-caption">Formações únicas de gelo no Ártico - Esculpidas pelo vento e temperatura</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DERRETIMENTO -->
+    <section class="card gallery-category" aria-labelledby="title-derretimento">
+      <h3 id="title-derretimento" class="category-title">Derretimento e Suas Evidências</h3>
+      <div class="gallery-container">
+        <div class="gallery-item" data-category="derretimento" tabindex="0" role="button" aria-label="Abrir imagem: Geleira derretendo">
+          <img src="https://images.unsplash.com/photo-1563771829733-7a67c7d3c411?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+               alt="Geleira derretendo" class="gallery-image">
+          <div class="gallery-caption">Geleira derretendo na Islândia - Água de degelo escorrendo por fissuras</div>
+        </div>
+        
+        <div class="gallery-item" data-category="derretimento" tabindex="0" role="button" aria-label="Abrir imagem: Comparação histórica de geleira">
+          <img src="https://pensamentoverde.com.br/wp-content/uploads/2015/11/geleiras2.jpg" 
+               alt="Comparação de geleira ao longo dos anos" class="gallery-image">
+          <div class="gallery-caption"> Comparação de uma foto que foi retirada no ano de 1900 e 2000 no mesmo local.</div>
+        </div>
+        
+        <div class="gallery-item" data-category="derretimento" tabindex="0" role="button" aria-label="Abrir imagem: Icebergs flutuantes">
+          <img src="https://images.unsplash.com/photo-1722846323919-31491b8e9e2c?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+               alt="Icebergs flutuantes" class="gallery-image">
+          <div class="gallery-caption">Icebergs flutuantes - Fragmentos de geleiras que se desprenderam devido ao aquecimento</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAUNA -->
+    <section class="card gallery-category" aria-labelledby="title-fauna">
+  <h3 id="title-fauna" class="category-title">Fauna Ameaçada</h3>
+  <div class="gallery-container">
+    <div class="gallery-item" data-category="fauna" tabindex="0" role="button" aria-label="Abrir imagem: Urso polar">
+      <img src="https://extra.globo.com/incoming/17358936-3cd-cfd/w976h550-PROP/urso-polar.jpg" 
+           alt="Urso polar em meio ao degelo" class="gallery-image">
+      <div class="gallery-caption">Urso polar em habitat cada vez mais reduzido - Espécie ameaçada pelo desaparecimento do gelo marinho</div>
+    </div>
+
+    <div class="gallery-item" data-category="fauna" tabindex="0" role="button" aria-label="Abrir imagem: Pinguins em colônia">
+      <img src="https://vitorianews.com.br/wp-content/uploads/2024/01/pinguins.jpg" 
+           alt="Pinguins em colônia" class="gallery-image">
+      <div class="gallery-caption">Colônia de pinguins-imperador - Seu habitat está diminuindo com o aquecimento das regiões polares</div>
+    </div>
+
+    <div class="gallery-item" data-category="fauna" tabindex="0" role="button" aria-label="Abrir imagem: Foca Weddell">
+      <img src="https://static.nationalgeographicbrasil.com/files/styles/image_3200/public/01-weddell-seal-NationalGeographic_2218699.jpg?w=1600" 
+           alt="Foca Weddell em gelo" class="gallery-image">
+      <div class="gallery-caption">Foca Weddell - Seu habitat está diminuindo com o aquecimento das regiões polares</div>
+    </div>
+  </div>
+</section>
+
+    <!-- PESQUISAS -->
+    <section class="card" aria-labelledby="pesquisas-title">
+      <h2 id="pesquisas-title" class="section-title">Pesquisas e Recursos</h2>
+      <p class="lead">
+        Seleção de artigos, relatórios e recursos confiáveis para entender mitos e verdades sobre o derretimento de geleiras.
+        (Substitua os links pelos específicos que desejar.)
+      </p>
+
+      <div class="research-grid" role="list">
+        <article class="research-card" role="listitem">
+          <h4>Relatórios científicos e padrões</h4>
+          <p>Relatórios de organizações internacionais que compilam dados e projeções climáticas.</p>
+          <a href="#" target="_blank" rel="noopener noreferrer">https://www-ipcc-ch.translate.goog/?_x_tr_sl=en&_x_tr_tl=pt&_x_tr_hl=pt&_x_tr_pto=tc</a>
+        </article>
+
+        <article class="research-card" role="listitem">
+          <h4>Dados de observação de geleiras</h4>
+          <p>Repositórios com séries temporais, imagens de satélite e medições de recuo glacial.</p>
+          <a href="#" target="_blank" rel="noopener noreferrer">Banco de dados de geleiras</a>
+        </article>
+
+        <article class="research-card" role="listitem">
+          <h4>Artigos de divulgação científica</h4>
+          <p>Textos explicativos que desmentem mitos comuns (por exemplo: "geleiras sempre voltam").</p>
+          <a href="#" target="_blank" rel="noopener noreferrer">Artigo explicativo</a>
+        </article>
+
+        <article class="research-card" role="listitem">
+          <h4>Ferramentas e simulações</h4>
+          <p>Sites e ferramentas interativas que permitem simular o impacto do derretimento.</p>
+          <a href="#" target="_blank" rel="noopener noreferrer">Ferramentas interativas</a>
+        </article>
+      </div>
+    </section>
+
+    <footer role="contentinfo">
+      <div class="credits">
+        Projeto — 6º A/B • Mitos e Verdades sobre o derretimento das geleiras — Desenvolvido como recurso educacional
+      </div>
+    </footer>
+  </main>
+
+  <!-- Modal de visualização -->
+  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-caption">
+    <div class="modal-inner" id="modalInner" tabindex="0">
+      <button class="close-modal" id="closeModal" aria-label="Fechar (ESC)">×</button>
+      <img src="" alt="" class="modal-content" id="modalImage">
+      <div id="modal-caption" class="modal-caption" role="status" aria-live="polite"></div>
+
+      <div class="modal-nav">
+        <button class="modal-btn" id="prevBtn" aria-label="Imagem anterior (tecla seta esquerda)">&larr;</button>
+        <button class="modal-btn" id="nextBtn" aria-label="Próxima imagem (tecla seta direita)">&rarr;</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ELEMENTOS
+    const filterButtons = Array.from(document.querySelectorAll('.filter-btn'));
+    const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+    const modal = document.getElementById('modal');
+    const modalImage = document.getElementById('modalImage');
+    const modalCaption = document.getElementById('modal-caption');
+    const closeModalBtn = document.getElementById('closeModal');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const modalInner = document.getElementById('modalInner');
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const body = document.documentElement || document.body;
+
+    // Estado
+    let currentIndex = -1;
+    let visibleItems = galleryItems.slice();
+
+    // Acessibilidade: foco inicial em main para navegação por teclado
+    document.getElementById('main').focus();
+
+    // FILTRO
+    function applyFilter(filter) {
+      visibleItems = [];
+      galleryItems.forEach(item => {
+        const cat = item.dataset.category || '';
+        if (filter === 'all' || cat === filter) {
+          item.style.display = '';
+          visibleItems.push(item);
+          item.setAttribute('tabindex', '0');
+        } else {
+          item.style.display = 'none';
+          item.setAttribute('tabindex', '-1');
+        }
+      });
+    }
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const filter = btn.dataset.filter;
+        filterButtons.forEach(b => {
+          b.classList.toggle('active', b === btn);
+          b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+        });
+        applyFilter(filter);
+      });
+    });
+
+    // ABRIR MODAL
+    function openModal(index) {
+      if (index < 0 || index >= visibleItems.length) return;
+      currentIndex = index;
+      const item = visibleItems[currentIndex];
+      const img = item.querySelector('img');
+      modalImage.src = img.src;
+      modalImage.alt = img.alt || '';
+      modalCaption.textContent = item.querySelector('.gallery-caption').textContent || '';
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      // foco no modal para captura de teclado
+      modalInner.focus();
+      // travar scroll no body
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      modalImage.src = '';
+      modalImage.alt = '';
+      document.body.style.overflow = '';
+      // retomar foco para o item atual se existir
+      if (currentIndex >= 0 && visibleItems[currentIndex]) {
+        visibleItems[currentIndex].focus();
+      } else {
+        document.getElementById('main').focus();
+      }
+    }
+
+    function showNext(delta = 1) {
+      if (!visibleItems.length) return;
+      let nextIndex = currentIndex + delta;
+      if (nextIndex < 0) nextIndex = visibleItems.length - 1;
+      if (nextIndex >= visibleItems.length) nextIndex = 0;
+      openModal(nextIndex);
+    }
+
+    // Eventos nos itens
+    galleryItems.forEach((item, idx) => {
+      // clique
+      item.addEventListener('click', () => {
+        // recalcula index em visibleItems
+        visibleItems = galleryItems.filter(i => i.style.display !== 'none');
+        const indexInVisible = visibleItems.indexOf(item);
+        openModal(indexInVisible);
+      });
+      // teclado (Enter ou Space)
+      item.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          visibleItems = galleryItems.filter(i => i.style.display !== 'none');
+          const indexInVisible = visibleItems.indexOf(item);
+          openModal(indexInVisible);
+        }
+      });
+    });
+
+    // Botões do modal
+    closeModalBtn.addEventListener('click', closeModal);
+    prevBtn.addEventListener('click', () => showNext(-1));
+    nextBtn.addEventListener('click', () => showNext(1));
+
+    // Teclado global para modal (ESC, setas)
+    document.addEventListener('keydown', (e) => {
+      if (modal.classList.contains('open')) {
+        if (e.key === 'Escape') {
+          closeModal();
+        } else if (e.key === 'ArrowRight') {
+          showNext(1);
+        } else if (e.key === 'ArrowLeft') {
+          showNext(-1);
+        }
+      }
+    });
+
+    // Clique fora da imagem fecha
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal || e.target === modalInner) {
+        closeModal();
+      }
+    });
+
+    // Alternar modo escuro (salva preferência no localStorage)
+    function setTheme(isDark) {
+      if (isDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        darkModeToggle.setAttribute('aria-pressed', 'true');
+        darkModeToggle.textContent = 'Modo Claro';
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        darkModeToggle.setAttribute('aria-pressed', 'false');
+        darkModeToggle.textContent = 'Modo Escuro';
+      }
+      try {
+        localStorage.setItem('prefersDark', isDark ? '1' : '0');
+      } catch (err) {
+        // ignore
+      }
+    }
+
+    // inicializa tema conforme preferencia ou system
+    (function initTheme() {
+      let prefersDark = false;
+      try {
+        const stored = localStorage.getItem('prefersDark');
+        if (stored !== null) prefersDark = stored === '1';
+        else prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      } catch (e) {
+        prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      }
+      setTheme(prefersDark);
+    })();
+
+    darkModeToggle.addEventListener('click', () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      setTheme(!isDark);
+    });
+
+    // APLICAR FILTRO INICIAL
+    applyFilter('all');
+
+    // CERTIFICAR QUE IMAGENS POSSAM SER NAVEGADAS COM TAB (melhora acessibilidade)
+    // já setamos tabindex acima; garantir ordem natural
+    document.addEventListener('DOMContentLoaded', () => {
+      // nada extra por enquanto
+    });
+
+    // CONTROLAR REDEIMENSIONAMENTO: se abrir modal e trocar visívelItems
+    window.addEventListener('resize', () => {
+      // recalcular visibleItems = elementos atualmente visíveis
+      visibleItems = galleryItems.filter(i => i.style.display !== 'none');
+    });
+  </script>
+</body>
+</html>

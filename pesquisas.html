@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pesquisas - 6º A/B Mitos e Verdades</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar" role="navigation" aria-label="Barra de navegação principal">
+    <div class="brand" aria-label="Identidade da escola e título do projeto">
+      <div class="logo" aria-hidden="true">6A</div>
+      <div class="title">6º A/B — Mitos e Verdades</div>
+    </div>
+    <div class="nav-menu">
+      <a href="index.html" class="nav-link">Início</a>
+      <a href="desenvolvimento.html" class="nav-link">Desenvolvimento</a>
+      <a href="pesquisas.html" class="nav-link active">Pesquisas</a>
+      <a href="galeria.html" class="nav-link">Galeria</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <main>
+      <section class="card" aria-labelledby="pesquisas-title">
+        <h2 id="pesquisas-title" class="section-title">Nossas Pesquisas</h2>
+        <p class="lead">
+          Aqui estão os principais dados e descobertas de nossa pesquisa sobre o derretimento das geleiras.
+        </p>
+      </section>
+
+      <section class="card" aria-labelledby="dados-title">
+        <h2 id="dados-title" class="section-title">Dados Coletados</h2>
+        
+        <div class="research-item">
+          <h3>Taxa de Derretimento das Geleiras</h3>
+          <p>Nossas pesquisas mostram que a taxa de derretimento das geleiras acelerou em 65% nas últimas duas décadas.</p>
+          <div class="research-data">
+            <div class="data-item">
+              <span class="data-value">+65%</span>
+              <span class="data-label">Aceleração do derretimento</span>
+            </div>
+            <div class="data-item">
+              <span class="data-value">950 Gt/ano</span>
+              <span class="data-label">Perda atual de gelo</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="research-item">
+          <h3>Elevação do Nível do Mar</h3>
+          <p>O derretimento das geleiras contribui significativamente para a elevação do nível dos oceanos.</p>
+          <div class="research-data">
+            <div class="data-item">
+              <span class="data-value">4.8 mm/ano</span>
+              <span class="data-label">Elevação atual</span>
+            </div>
+            <div class="data-item">
+              <span class="data-value">+220%</span>
+              <span class="data-label">Aumento desde 1990</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gráfico 1: Perda de Massa de Gelo -->
+      <section class="card" aria-labelledby="chart1-title">
+        <h2 id="chart1-title" class="section-title">Perda de Massa de Gelo (1990-2023)</h2>
+        <p class="lead">Dados mostrando a perda anual de massa de gelo em gigatoneladas/ano</p>
+        <div class="chart-container">
+          <canvas id="iceMassChart" aria-label="Gráfico mostrando a perda de massa de gelo ao longo dos anos" role="img"></canvas>
+        </div>
+        <p class="muted-small">Fonte: NASA Earth Observatory, IPCC AR6 (2023)</p>
+      </section>
+
+      <!-- Gráfico 2: Elevação do Nível do Mar -->
+      <section class="card" aria-labelledby="chart2-title">
+        <h2 id="chart2-title" class="section-title">Elevação do Nível do Mar (1990-2023)</h2>
+        <p class="lead">Dados mostrando a elevação do nível do mar em mm/ano relacionada ao derretimento das geleiras</p>
+        <div class="chart-container">
+          <canvas id="seaLevelChart" aria-label="Gráfico mostrando a elevação do nível do mar ao longo dos anos" role="img"></canvas>
+        </div>
+        <p class="muted-small">Fonte: NASA Earth Observatory, IPCC AR6 (2023)</p>
+      </section>
+
+      <section class="card" aria-labelledby="consequencias-title">
+        <h2 id="consequencias-title" class="section-title">Consequências</h2>
+        
+        <div class="consequences-grid">
+          <div class="consequence-item">
+            <h4>🌊 Elevação do nível do mar</h4>
+            <p>Ameaça comunidades costeiras e ecossistemas marinhos.</p>
+          </div>
+          <div class="consequence-item">
+            <h4>🐾 Perda de habitat</h4>
+            <p>Espécies como ursos polares e pinguins perdem seu habitat natural.</p>
+          </div>
+          <div class="consequence-item">
+            <h4>🌡️ Alterações climáticas</h4>
+            <p>Mudanças nos padrões de temperatura e correntes oceânicas.</p>
+          </div>
+          <div class="consequence-item">
+            <h4>🚰 Escassez de água</h4>
+            <p>Regiões que dependem do degelo para abastecimento enfrentam crises.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="solucoes-title">
+        <h2 id="solucoes-title" class="section-title">Soluções Possíveis</h2>
+        
+        <div class="solutions-list">
+          <div class="solution-item">
+            <h4>Reduzir emissões de carbono</h4>
+            <p>Diminuir a queima de combustíveis fósseis é fundamental para frear o aquecimento global.</p>
+          </div>
+          <div class="solution-item">
+            <h4>Promover energias renováveis</h4>
+            <p>Investir em solar, eólica e outras fontes limpas de energia.</p>
+          </div>
+          <div class="solution-item">
+            <h4>Conservação de áreas glaciais</h4>
+            <p>Proteger as regiões de geleiras através de políticas de conservação.</p>
+          </div>
+          <div class="solution-item">
+            <h4>Educação ambiental</h4>
+            <p>Conscientizar as pessoas sobre a importância das geleiras e como protegê-las.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <aside>
+      <section class="card" aria-labelledby="fontes-title">
+        <h2 id="fontes-title" class="section-title">Fontes de Pesquisa</h2>
+        <div class="sources-list">
+          <a href="https://climate.nasa.gov/" class="source-link" target="_blank">NASA Climate Change</a>
+          <a href="https://www.ipcc.ch/" class="source-link" target="_blank">IPCC - Painel Intergovernamental sobre Mudanças Climáticas</a>
+          <a href="https://www.nationalgeographic.com/environment/" class="source-link" target="_blank">National Geographic Environment</a>
+          <a href="https://www.worldwildlife.org/" class="source-link" target="_blank">World Wildlife Fund</a>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="downloads-title">
+        <h2 id="downloads-title" class="section-title">Materiais para Download</h2>
+        <div class="downloads-list">
+          <a href="#" class="download-link">📄 Relatório Completo (PDF)</a>
+          <a href="#" class="download-link">📊 Dados da Pesquisa (XLSX)</a>
+          <a href="#" class="download-link">🖼️ Apresentação (PPTX)</a>
+        </div>
+      </section>
+
+      <!-- Botões de Download dos Gráficos -->
+      <button id="downloadBtn1" class="download-btn" aria-label="Baixar gráfico de perda de massa de gelo">Baixar gráfico de massa de gelo</button>
+      <button id="downloadBtn2" class="download-btn" aria-label="Baixar gráfico de elevação do nível do mar">Baixar gráfico de nível do mar</button>
+    </aside>
+  </div>
+
+  <footer>
+    <div class="credits">
+      Desenvolvido por: Gabriel Rosa, Lucas Lohan, Ana Flavia | 
+      <a href="index.html">Voltar para a página inicial</a>
+    </div>
+  </footer>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="charts.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

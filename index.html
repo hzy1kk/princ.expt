@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>6º A/B — Mitos e Verdades: Derretimento das Geleiras</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar" role="navigation" aria-label="Barra de navegação principal">
+    <div class="brand" aria-label="Identidade da escola e título do projeto">
+      <div class="logo" aria-hidden="true">6A</div>
+      <div class="title">6º A/B — Mitos e Verdades</div>
+    </div>
+    <div class="nav-menu">
+      <a href="index.html" class="nav-link active">Início</a>
+      <a href="desenvolvimento.html" class="nav-link">Desenvolvimento</a>
+      <a href="pesquisas.html" class="nav-link">Pesquisas</a>
+      <a href="galeria.html" class="nav-link">Galeria</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <main>
+      <section class="card" aria-labelledby="intro-title">
+        <h2 id="intro-title" class="section-title">Projeto</h2>
+        <p class="lead">
+         O derretimento das geleiras é causado principalmente pelo aquecimento global, resultado do excesso de gases de efeito estufa. Esse fenômeno provoca o aumento do nível do mar, a perda de reservas de água doce e prejudica animais e comunidades que dependem do gelo. Atualmente, regiões como o Ártico, a Groenlândia e a Antártida estão derretendo rapidamente, e muitas geleiras podem desaparecer nas próximas décadas, trazendo sérias consequências para o planeta.
+        </p>
+      </section>
+
+      <section class="card" aria-labelledby="sectors-title">
+        <h2 id="sectors-title" class="section-title">Setores de Pesquisa</h2>
+        <div class="sector" role="list" aria-label="Setores de pesquisa">
+          <div class="result-item" role="listitem" tabindex="0">Mares e Oceanos</div>
+          <div class="result-item" role="listitem" tabindex="0">Clima e Atmosfera</div>
+          <div class="result-item" role="listitem" tabindex="0">Biosfera e Ecossistemas</div>
+          <div class="result-item" role="listitem" tabindex="0">Poluição e Contaminação</div>
+        </div>
+      </section>
+
+      
+
+      <section class="card" aria-labelledby="links-title">
+        <h2 id="links-title" class="section-title">Links Úteis</h2>
+        <div class="links">
+          <a class="link" href="https://phet.colorado.edu/pt_BR/simulations/glaciers" target="_blank">PhET – Simulação "Geleiras"</a>
+          <a class="link" href="https://sealevel.nasa.gov/vesl/web/sea-level/slr-antarctica/" target="_blank">NASA – Virtual Earth System Laboratory (VESL)</a>
+          <a class="link" href="https://icemap.no/en/" target="_blank">ICE AGE (ICEMAP.no)</a>
+        </div>
+      </section>
+
+      <!-- Seção Verdadeiro ou Falso -->
+      <section class="card" aria-labelledby="true-false-title">
+        <h2 id="true-false-title" class="section-title">Verdadeiro ou Falso</h2>
+        <p class="lead">Responda as afirmações abaixo e verifique se você está correto!</p>
+
+        <form id="trueFalseForm" aria-labelledby="true-false-title">
+          <div class="question">
+            <p><strong>1. O derretimento das geleiras contribui para a elevação do nível do mar?</strong></p>
+            <div class="true-false">
+              <input type="radio" id="q1_true" name="q1" value="true" required />
+              <label class="option" for="q1_true">Verdadeiro</label>
+
+              <input type="radio" id="q1_false" name="q1" value="false" />
+              <label class="option" for="q1_false">Falso</label>
+            </div>
+          </div>
+
+          <div class="question">
+            <p><strong>2. As geleiras do Ártico não estão afetadas pelas mudanças climáticas?</strong></p>
+            <div class="true-false">
+              <input type="radio" id="q2_true" name="q2" value="true" required />
+              <label class="option" for="q2_true">Verdadeiro</label>
+
+              <input type="radio" id="q2_false" name="q2" value="false" />
+              <label class="option" for="q2_false">Falso</label>
+            </div>
+          </div>
+
+          <div class="question">
+            <p><strong>3. O derretimento das geleiras pode ter efeitos negativos nos ecossistemas marinhos?</strong></p>
+            <div class="true-false">
+              <input type="radio" id="q3_true" name="q3" value="true" required />
+              <label class="option" for="q3_true">Verdadeiro</label>
+
+              <input type="radio" id="q3_false" name="q3" value="false" />
+              <label class="option" for="q3_false">Falso</label>
+            </div>
+          </div>
+
+          <button type="button" id="checkAnswersBtn">Verificar Respostas</button>
+        </form>
+
+        <!-- Gabarito -->
+        <div id="answerKey" class="answer-key">
+          <h3>Gabarito</h3>
+          <p><strong>1:</strong> Verdadeiro - O derretimento das geleiras contribui diretamente para a elevação do nível do mar.</p>
+          <p><strong>2:</strong> Falso - As geleiras do Ártico estão entre as mais afetadas pelas mudanças climáticas.</p>
+          <p><strong>3:</strong> Verdadeiro - A água doce do derretimento altera a salinidade dos oceanos, afetando os ecossistemas marinhos.</p>
+        </div>
+      </section>
+    </main>
+
+    <aside>
+       <section class="card actions" aria-label="Como ajudar o meio ambiente">
+    <h2 class="section-title">Como você pode ajudar</h2>
+    <div class="actions-container">
+      <div class="action-card" tabindex="0">
+        <h3>Economize energia e água</h3>
+        <p>Desligue aparelhos não utilizados, use lâmpadas econômicas e evite desperdício de água.</p>
+      </div>
+
+      <div class="action-card" tabindex="0">
+        <h3>Reduza emissões de CO₂</h3>
+        <p>Prefira transporte sustentável, como bicicleta ou transporte público, sempre que possível.</p>
+      </div>
+
+      <div class="action-card" tabindex="0">
+        <h3>Apoie projetos ambientais</h3>
+        <p>Contribua com organizações que trabalham na preservação de geleiras e ecossistemas polares.</p>
+      </div>
+
+      <div class="action-card" tabindex="0">
+        <h3>Compartilhe informações</h3>
+        <p>Informe amigos e familiares sobre mudanças climáticas e a importância de preservar as geleiras.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Botões de Download -->
+  <button id="downloadBtn1" class="download-btn" aria-label="Baixar gráfico de perda de massa de gelo">Baixar gráfico de massa de gelo</button>
+  <button id="downloadBtn2" class="download-btn" aria-label="Baixar gráfico de elevação do nível do mar">Baixar gráfico de nível do mar</button>
+    </aside>
+  </div>
+
+  <!-- Footer com créditos da equipe -->
+  <footer>
+    <div class="credits">
+      Desenvolvido por: Gabriel Rosa, Lucas Lohan, Ana Flavia
+    </div>
+  </footer>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="charts.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
