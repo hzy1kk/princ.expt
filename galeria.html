@@ -27,18 +27,38 @@
       --transition: 0.3s ease;
     }
 
-    [data-theme="dark"] {
-      --bg: #0f172a;
-      --card: #1e293b;
-      --accent: #3b82f6;
-      --accent-light: #60a5fa;
-      --muted: #94a3b8;
-      --glass: rgba(30, 41, 59, 0.6);
-      --shadow-light: rgba(255, 255, 255, 0.05);
-      --shadow-dark: rgba(255, 255, 255, 0.12);
-      --text-primary: #e0e7ff;
-      --text-secondary: #cbd5e1;
-      background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f172a;
+        --card: #1e293b;
+        --accent: #3b82f6;
+        --accent-light: #60a5fa;
+        --muted: #94a3b8;
+        --glass: rgba(30, 41, 59, 0.6);
+        --shadow-light: rgba(255, 255, 255, 0.05);
+        --shadow-dark: rgba(255, 255, 255, 0.12);
+        --text-primary: #e0e7ff;
+        --text-secondary: #cbd5e1;
+        background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+      }
+      
+      .team-list .pill {
+        background: #2a3a67;
+        border-color: #3b82f6;
+        color: #3b82f6;
+      }
+      
+      .result-item {
+        background: #2a3a67;
+        border-color: #3b82f6;
+        color: #3b82f6;
+        box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
+      }
+      
+      .img-placeholder {
+        background: linear-gradient(180deg, #1e293b, #0f172a);
+        color: #94a3b8;
+      }
     }
 
     /* Reset */
@@ -125,23 +145,10 @@
       color: white;
     }
 
-    /* Botão modo escuro */
-    #darkModeToggle {
-      background: transparent;
-      border: 2px solid var(--accent);
-      border-radius: 24px;
-      color: var(--accent);
-      font-weight: 600;
-      padding: 6px 16px;
-      cursor: pointer;
-      user-select: none;
-      transition: background-color var(--transition), color var(--transition), border-color var(--transition);
-    }
-    #darkModeToggle:hover,
-    #darkModeToggle:focus {
-      background-color: var(--accent);
-      color: #fff;
-      outline: none;
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none; /* Esconder menu em mobile */
+      }
     }
 
     /* Container principal */
@@ -156,10 +163,6 @@
       .container {
         padding: 0 16px 16px;
       }
-      
-      .nav-menu {
-        display: none; /* Esconder menu em mobile */
-      }
     }
 
     /* Cards */
@@ -173,6 +176,7 @@
       opacity: 0;
       transform: translateY(12px);
       animation: fadeInUp 0.5s forwards;
+      margin-bottom: 30px;
     }
     .card:nth-child(1) { animation-delay: 0.1s; }
     .card:nth-child(2) { animation-delay: 0.25s; }
@@ -437,6 +441,38 @@
       text-decoration: none;
     }
 
+    /* Botão Voltar ao Início */
+    #goHomeBtn {
+      background: var(--accent);
+      color: white;
+      font-weight: 600;
+      padding: 8px 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+      margin-left: 20px;
+      text-align: center;
+    }
+
+    #goHomeBtn:hover {
+      background: var(--accent-light);
+      transform: scale(1.05);
+    }
+
+    #goHomeBtn:active {
+      transform: scale(0.95);
+    }
+
+    /* Estilo da div container do botão */
+    .back-home {
+      display: flex;
+      justify-content: flex-start;
+      padding: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
     /* Responsividade */
     @media (max-width: 768px) {
       .gallery-container {
@@ -492,11 +528,8 @@
       <a href="galeria.html" class="nav-link active" role="menuitem">Galeria</a>
     </div>
     <div class="back-home">
-  <!-- Corrigido o fechamento da tag div -->
-  <button id="goHomeBtn" class="btn-go-home" onclick="window.location.href='index.html'">🏠 Voltar ao Início</button>
-</div>
-
-
+      <button id="goHomeBtn" onclick="window.location.href='index.html'" aria-label="Voltar para a página inicial">Início</button>
+    </div>
   </nav>
 
   <main class="container" id="main" tabindex="-1">
@@ -565,62 +598,29 @@
 
     <!-- FAUNA -->
     <section class="card gallery-category" aria-labelledby="title-fauna">
-  <h3 id="title-fauna" class="category-title">Fauna Ameaçada</h3>
-  <div class="gallery-container">
-    <div class="gallery-item" data-category="fauna" tabindex="0" role="button" aria-label="Abrir imagem: Urso polar">
-      <img src="https://extra.globo.com/incoming/17358936-3cd-cfd/w976h550-PROP/urso-polar.jpg" 
-           alt="Urso polar em meio ao degelo" class="gallery-image">
-      <div class="gallery-caption">Urso polar em habitat cada vez mais reduzido - Espécie ameaçada pelo desaparecimento do gelo marinho</div>
-    </div>
+      <h3 id="title-fauna" class="category-title">Fauna Ameaçada</h3>
+      <div class="gallery-container">
+        <div class="gallery-item" data-category="fauna" tabindex="0" role="button" aria-label="Abrir imagem: Urso polar">
+          <img src="https://extra.globo.com/incoming/17358936-3cd-cfd/w976h550-PROP/urso-polar.jpg" 
+               alt="Urso polar em meio ao degelo" class="gallery-image">
+          <div class="gallery-caption">Urso polar em habitat cada vez mais reduzido - Espécie ameaçada pelo desaparecimento do gelo marinho</div>
+        </div>
 
-    <div class="gallery-item" data-category="fauna" tabindex="0" role="button" aria-label="Abrir imagem: Pinguins em colônia">
-      <img src="https://vitorianews.com.br/wp-content/uploads/2024/01/pinguins.jpg" 
-           alt="Pinguins em colônia" class="gallery-image">
-      <div class="gallery-caption">Colônia de pinguins-imperador - Seu habitat está diminuindo com o aquecimento das regiões polares</div>
-    </div>
+        <div class="gallery-item" data-category="fauna" tabindex="0" role="button" aria-label="Abrir imagem: Pinguins em colônia">
+          <img src="https://vitorianews.com.br/wp-content/uploads/2024/01/pinguins.jpg" 
+               alt="Pinguins em colônia" class="gallery-image">
+          <div class="gallery-caption">Colônia de pinguins-imperador - Seu habitat está diminuindo com o aquecimento das regiões polares</div>
+        </div>
 
-    <div class="gallery-item" data-category="fauna" tabindex="0" role="button" aria-label="Abrir imagem: Foca Weddell">
-      <img src="https://static.nationalgeographicbrasil.com/files/styles/image_3200/public/01-weddell-seal-NationalGeographic_2218699.jpg?w=1600" 
-           alt="Foca Weddell em gelo" class="gallery-image">
-      <div class="gallery-caption">Foca Weddell - Seu habitat está diminuindo com o aquecimento das regiões polares</div>
-    </div>
-  </div>
-</section>
-
-    <!-- PESQUISAS -->
-    <section class="card" aria-labelledby="pesquisas-title">
-      <h2 id="pesquisas-title" class="section-title">Pesquisas e Recursos</h2>
-      <p class="lead">
-        Seleção de artigos, relatórios e recursos confiáveis para entender mitos e verdades sobre o derretimento de geleiras.
-        (Substitua os links pelos específicos que desejar.)
-      </p>
-
-      <div class="research-grid" role="list">
-        <article class="research-card" role="listitem">
-          <h4>Relatórios científicos e padrões</h4>
-          <p>Relatórios de organizações internacionais que compilam dados e projeções climáticas.</p>
-          <a href="#" target="_blank" rel="noopener noreferrer">https://www-ipcc-ch.translate.goog/?_x_tr_sl=en&_x_tr_tl=pt&_x_tr_hl=pt&_x_tr_pto=tc</a>
-        </article>
-
-        <article class="research-card" role="listitem">
-          <h4>Dados de observação de geleiras</h4>
-          <p>Repositórios com séries temporais, imagens de satélite e medições de recuo glacial.</p>
-          <a href="#" target="_blank" rel="noopener noreferrer">Banco de dados de geleiras</a>
-        </article>
-
-        <article class="research-card" role="listitem">
-          <h4>Artigos de divulgação científica</h4>
-          <p>Textos explicativos que desmentem mitos comuns (por exemplo: "geleiras sempre voltam").</p>
-          <a href="#" target="_blank" rel="noopener noreferrer">Artigo explicativo</a>
-        </article>
-
-        <article class="research-card" role="listitem">
-          <h4>Ferramentas e simulações</h4>
-          <p>Sites e ferramentas interativas que permitem simular o impacto do derretimento.</p>
-          <a href="#" target="_blank" rel="noopener noreferrer">Ferramentas interativas</a>
-        </article>
+        <div class="gallery-item" data-category="fauna" tabindex="0" role="button" aria-label="Abrir imagem: Foca Weddell">
+          <img src="https://static.nationalgeographicbrasil.com/files/styles/image_3200/public/01-weddell-seal-NationalGeographic_2218699.jpg?w=1600" 
+               alt="Foca Weddell em gelo" class="gallery-image">
+          <div class="gallery-caption">Foca Weddell - Seu habitat está diminuindo com o aquecimento das regiões polares</div>
+        </div>
       </div>
     </section>
+
+   
 
     <footer role="contentinfo">
       <div class="credits">
@@ -654,8 +654,6 @@
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     const modalInner = document.getElementById('modalInner');
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    const body = document.documentElement || document.body;
 
     // Estado
     let currentIndex = -1;
@@ -775,42 +773,6 @@
       }
     });
 
-    // Alternar modo escuro (salva preferência no localStorage)
-    function setTheme(isDark) {
-      if (isDark) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        darkModeToggle.setAttribute('aria-pressed', 'true');
-        darkModeToggle.textContent = 'Modo Claro';
-      } else {
-        document.documentElement.removeAttribute('data-theme');
-        darkModeToggle.setAttribute('aria-pressed', 'false');
-        darkModeToggle.textContent = 'Modo Escuro';
-      }
-      try {
-        localStorage.setItem('prefersDark', isDark ? '1' : '0');
-      } catch (err) {
-        // ignore
-      }
-    }
-
-    // inicializa tema conforme preferencia ou system
-    (function initTheme() {
-      let prefersDark = false;
-      try {
-        const stored = localStorage.getItem('prefersDark');
-        if (stored !== null) prefersDark = stored === '1';
-        else prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      } catch (e) {
-        prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      }
-      setTheme(prefersDark);
-    })();
-
-    darkModeToggle.addEventListener('click', () => {
-      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      setTheme(!isDark);
-    });
-
     // APLICAR FILTRO INICIAL
     applyFilter('all');
 
@@ -825,6 +787,6 @@
       // recalcular visibleItems = elementos atualmente visíveis
       visibleItems = galleryItems.filter(i => i.style.display !== 'none');
     });
-  </script.js>
+  </script>
 </body>
 </html>
